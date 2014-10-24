@@ -9,7 +9,7 @@ class Config(object):
     SYS_ADMINS = ['foo@example.com']
 
 class ProductionConfig(Config):
-    DEBUG = False
+    DEBUG = True
 
 class DevelopmentConfig(Config):
     '''Use "if app.debug" anywhere in your code, that code will run in development code.'''
