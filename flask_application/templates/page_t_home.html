@@ -5,11 +5,7 @@
 {% endblock%}
 
     {% block content %}
-    <div class="sixteen columns">
-        <h1 class="remove-bottom" style="margin-top: 40px">Reformed Confessions</h1>
 
-        <hr />
-    </div>
     <div class="column">
         {% for (abbr, title), chapters in documents.iteritems() %}
             <h3>{{ title }}</h3>
