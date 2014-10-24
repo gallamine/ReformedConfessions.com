@@ -1,1 +1,2 @@
-web: touch flask_application.wsgi
+web: gunicorn flask_application.wsgi --log-file -
+
