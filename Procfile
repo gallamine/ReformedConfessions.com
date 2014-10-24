@@ -1,1 +1,1 @@
-web: python runserver.py
+web: touch flask_application.wsgi
