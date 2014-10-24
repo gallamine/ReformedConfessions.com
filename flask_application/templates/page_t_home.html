@@ -1,0 +1,21 @@
+{% extends "base_t.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/page_t_home.css') }}">
+{% endblock%}
+
+    {% block content %}
+    <div class="sixteen columns">
+        <h1 class="remove-bottom" style="margin-top: 40px">Reformed Confessions</h1>
+
+        <hr />
+    </div>
+    <div class="column">
+        {% for (abbr, title), chapters in documents.iteritems() %}
+            <h3>{{ title }}</h3>
+            {% for chapter in chapters %}
+                <a href="/c/{{ abbr }}/{{ chapter }}" class="button">{{ chapter }}</a>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endblock %}
