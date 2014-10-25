@@ -41,11 +41,11 @@ def inject_site_defaults():
 
 @app.route('/')
 def page_home():
-    wcf_chapters = get_wcf().keys()
-    wcf_chapters.sort(key=int)
-    documents = {
-        ('wcf', "Westminster Confession of Faith"): wcf_chapters
-    }
+    documents = [
+        (('wcf', "Westminster Confession of Faith"), sort_num_string(get_wcf().keys())),
+        (('wlc', "Westminster Shorter Catechsim"), sort_num_string(get_catechism("wsc").keys())),
+        (('wlc', "Westminster Larger Catechsim"), sort_num_string(get_catechism("wlc").keys())),
+    ]
     return render_template('page_t_home.html',
                            page_title="Home",
                            documents=documents)
@@ -66,7 +66,7 @@ def page_wcf_chapter_section(chapter, section):
 
 @app.route('/c/wcf/<chapter>')
 def page_wcf_chapter(chapter):
-    page_title = "Westminster Confession of Faith %s" % (chapter)
+    page_title = "Westminster Confession of Faith"
     title, paragraphs = get_wcf(chapter)
     if paragraphs:
         return render_template('page_t_wcf.html',
@@ -87,18 +87,42 @@ def get_wcf(chapter=None, section=None):
         chapter = str(chapter)
         section = int(section)
         try:
-            return (wcf[chapter]["title"], [wcf[chapter]["body"][section - 1]])
+            title = "Chapter %s: %s" % (chapter, wcf[chapter]["title"])
+            section = [(section, wcf[chapter]["body"][section - 1])]
+            return (title, section)
         except:
             return None
     elif chapter:
         chapter = str(chapter)
         try:
-            return (wcf[chapter]["title"], wcf[chapter]["body"])
+            title = "Chapter %s: %s" % (chapter, wcf[chapter]["title"])
+            return (title, list(enumerate(wcf[chapter]["body"], 1)))
         except:
-            return ["asdf"]
+            return None
     else:
         return wcf
 
+
+def get_catechism(name, num=None):
+    root_path = os.path.dirname(os.path.realpath(__file__))
+    json_path = os.path.join(root_path, "static/data/{}.json".format(name))
+    with open(json_path, "r") as f:
+        wlc = load(f)
+
+    if num:
+        num = str(num)
+        try:
+            return (num, wlc[num][0], wlc[num][1])
+        except:
+            return None
+    else:
+        return wlc
+
+
+def sort_num_string(l):
+    l = list(l)[:]
+    l.sort(key=int)
+    return l
 
 
 class DoesNotExistException(Exception):

@@ -9,8 +9,13 @@
         <h3>{{ page_title }}</h3>
         <h4>{{ chapter_title }}</h4>
 
-        {% for paragraph in paragraphs %}
-            <p>{{ paragraph }}</p>
+        {% for num, paragraph in paragraphs %}
+              <div class="fourteen columns">
+                <div class="row">
+                  <div class="one columns alpha">{{ num }}.</div>
+                  <div class="thirteen columns alpha">{{ paragraph }}</div>
+                </div>
+              </div>
         {% endfor %}
     </div>
     {% endblock %}
