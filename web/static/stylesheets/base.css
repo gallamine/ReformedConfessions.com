@@ -100,16 +100,22 @@
 		padding-top: 5px;
 		padding-bottom: 5px;
 		text-align: center;
-		margin-bottom: 10px;
+		margin-bottom: 0px;
 		font-size: 16px;
 		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	}
 	.navbutton {
  		border-radius: 2px;
 	}
-	#navbar a:link {color: #A60000; text-decoration: none;}
-	#navbar a:visited, #navbar a:hover, #navbar a:active {
-	  color: #A60000;
+	#navbar a:link {
+		color: #999; text-decoration: none;
+	}
+	#navbar a:visited {
+	  color: #999;
+	  text-decoration: none;
+	}
+	#navbar a:hover, #navbar a:active {
+	  color: #000;
 	  text-decoration: none;
 	}
 
@@ -129,6 +135,8 @@
  		border-radius: 2px;
  		margin: 5px;
  		padding-top: 30px;
+ 		padding-left: 7px;
+ 		padding-right: 7px;
  		height: 100%;
  		text-align:center;
  		float: left;
@@ -158,7 +166,7 @@
 	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
 	a:hover, a:focus { color: #000; }
 	a.footer, a.footer:visited { color: #999999; text-decoration: none; }
-	a.footer:hover, a.nounderline:focus { color: #999999; text-decoration: underline; }
+	a.footer:hover, a.nounderline:focus { color: #000; text-decoration: none; }
 	p a, p a:visited { line-height: inherit; }
 
 
