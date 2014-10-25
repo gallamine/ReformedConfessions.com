@@ -1,17 +1,17 @@
 {% extends "base_t.html" %}
 
-{% block header %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/page_t_home.css') }}">
-{% endblock%}
-
     {% block content %}
 
-    <div class="column">
-        {% for (abbr, title), chapters in documents %}
-            <h4>{{ title }}</h4>
-            {% for chapter in chapters %}
-                <a href="/c/{{ abbr }}/{{ chapter }}" class="button">{{ chapter }}</a>
+
+   </div>
+    <div class="container">
+        <div class="row" id="hometable">
+            <div class="two columns"><p /></div>
+            {% for (style, (abbr, title)) in documents %}
+                <div class="four columns homelink {{ style }}" onclick="location.href='/{{ abbr }}';" style="cursor:pointer;">
+                    {{ title }}
+                </div>
             {% endfor %}
-        {% endfor %}
+        </div>
     </div>
     {% endblock %}

@@ -2,6 +2,7 @@ from flask import Flask, session, render_template, request_started, abort
 from werkzeug import SharedDataMiddleware
 from werkzeug.routing import BaseConverter
 from json import load
+import itertools
 import os
 
 # create our application
@@ -52,13 +53,31 @@ def inject_site_defaults():
 @app.route('/')
 def page_home():
     documents = [
-        (('wcf', "Westminster Confession of Faith"), sort_num_string(get_wcf().keys())),
-        (('wsc', "Westminster Shorter Catechsim"), sort_num_string(get_catechism("wsc").keys())),
-        (('wlc', "Westminster Larger Catechsim"), sort_num_string(get_catechism("wlc").keys())),
+        ('wcf', "Westminster Confession of Faith"),
+        ('wsc', "Westminster Shorter Catechsim"),
+        ('wlc', "Westminster Larger Catechsim"),
     ]
+    docs = list(itertools.izip(itertools.cycle(["link_a", "link_b", "link_c"]), documents))
+    print docs
     return render_template('page_t_home.html',
                            page_title="Home",
-                           documents=documents)
+                           documents=docs)
+
+
+@app.route('/<regex("(wlc|wsc|wcf)"):doc_name>')
+def page_document_index(doc_name):
+    page_title = catechisms[doc_name]
+    if doc_name == "wcf":
+        chapters = sort_num_string(get_wcf().keys())
+    elif doc_name in ["wsc", "wlc"]:
+        chapters = sort_num_string(get_catechism(doc_name).keys())
+    if chapters:
+        return render_template('page_t_doc_index.html',
+                               page_title=page_title,
+                               abbr=doc_name,
+                               chapters=chapters)
+    else:
+        abort(404)
 
 
 @app.route('/c/wcf/<chapter>/<section>')
@@ -127,6 +146,7 @@ def get_wcf(chapter=None, section=None):
 
 
 catechisms = {
+    "wcf": "Westminster Confession of Faith",
     "wlc": "Westminster Larger Catechsim",
     "wsc": "Westminster Shorter Catechsim",
 }
