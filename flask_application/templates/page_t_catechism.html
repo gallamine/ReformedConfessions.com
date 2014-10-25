@@ -1,0 +1,25 @@
+{% extends "base_t.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/page_t_home.css') }}">
+{% endblock%}
+
+    {% block content %}
+    <div class="column">
+        <h3>{{ page_title }}</h3>
+
+        {% for num, question, answer in qas %}
+              <div class="fourteen columns">
+                <div class="row">
+                  <div class="one columns alpha omega">{{ num }}.</div>
+                  <div class="thirteen columns alpha omega">
+                    <dl>
+                        <dt>{{ question }}</dt>
+                        <dd>{{ answer }}</dt>
+                    </dl>
+                </div>
+                </div>
+              </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
