@@ -49,11 +49,10 @@ def pre_deploy():
 @task
 def deploy():
     global code_dir
-    '''Final deployment of the application'''
+    '''Final deployment of the application to Heroku'''
     with cd(code_dir):
         run("git pull")
-        run("touch web.wsgi")
-        #run("sudo apachectl restart")
+        run("git push heroku master")
 
 
 @task

@@ -24,6 +24,7 @@ def serve_static(sender):
 
 request_started.connect(serve_static, app)
 
+
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
         super(RegexConverter, self).__init__(url_map)
@@ -31,6 +32,7 @@ class RegexConverter(BaseConverter):
 
 
 app.url_map.converters['regex'] = RegexConverter
+
 
 @app.before_request
 def before_request():
@@ -92,8 +94,8 @@ def page_wlc_qa(catechism, question):
     qas = get_catechism(catechism, num=question)
     if qas:
         return render_template('page_t_catechism.html',
-                           page_title=page_title,
-                           qas=qas)
+                               page_title=page_title,
+                               qas=qas)
     else:
         abort(404)
 
