@@ -85,43 +85,36 @@ def page_document_index(doc_name):
         abort(404)
 
 
-@app.route('/c/wcf/<chapter>/<section>')
-def page_wcf_chapter_section(chapter, section):
-    page_title = "Westminster Confession of Faith %s.%s" % (chapter, section)
-    title, paragraphs = get_wcf(chapter, section)
-    if paragraphs:
-        return render_template('page_t_wcf.html',
-                               page_title=page_title,
-                               chapter_title=title,
-                               paragraphs=paragraphs)
-    else:
-        abort(404)
+# @app.route('/c/wcf/<chapter>/<section>')
+# def page_wcf_chapter_section(chapter, section):
+#     page_title = "Westminster Confession of Faith %s.%s" % (chapter, section)
+#     title, paragraphs = get_wcf(chapter, section)
+#     if paragraphs:
+#         return render_template('page_t_wcf.html',
+#                                page_title=page_title,
+#                                chapter_title=title,
+#                                paragraphs=paragraphs)
+#     else:
+#         abort(404)
 
 
-@app.route('/c/wcf/<chapter>')
-def page_wcf_chapter(chapter):
-    page_title = "Westminster Confession of Faith"
-    title, paragraphs = get_wcf(chapter)
-    if paragraphs:
-        return render_template('page_t_wcf.html',
-                               page_title=page_title,
-                               chapter_title=title,
-                               paragraphs=paragraphs)
-    else:
-        abort(404)
-
-
-@app.route('/c/<regex("(wlc|wsc)"):catechism>/<question>')
-def page_wlc_qa(catechism, question):
-
+@app.route('/c/<regex("(wlc|wsc|wcf)"):catechism>/<question>')
+def page_doc_display(catechism, question):
     page_title = catechisms[catechism]
-    qas = get_catechism(catechism, num=question)
-    if qas:
-        return render_template('page_t_catechism.html',
-                               page_title=page_title,
-                               qas=qas)
-    else:
-        abort(404)
+    if catechism == "wcf":
+        title, paragraphs = get_wcf(question)
+        if paragraphs:
+            return render_template('page_t_wcf.html',
+                                   page_title=page_title,
+                                   chapter_title=title,
+                                   paragraphs=paragraphs)
+    elif catechism in ["wsc", "wlc"]:
+        qas = get_catechism(catechism, num=question)
+        if qas:
+            return render_template('page_t_catechism.html',
+                                   page_title=page_title,
+                                   qas=qas)
+    abort(404)
 
 
 def get_wcf(chapter=None, section=None):
