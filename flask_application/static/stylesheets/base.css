@@ -65,7 +65,7 @@
 		color: #181818;
 		font-family: "Georgia", "Times New Roman", serif;
 		font-weight: normal; }
-	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; text-decoration: line-through;}
 	h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
 	h2 { font-size: 35px; line-height: 40px; margin-bottom: 10px; }
 	h3 { font-size: 28px; line-height: 34px; margin-bottom: 8px; }
@@ -81,6 +81,9 @@
 	em { font-style: italic; }
 	strong { font-weight: bold; color: #333; }
 	small { font-size: 80%; }
+
+	dt { margin: 0 0 10px 0; color: #000;  }
+	dd { margin: 0 0 10px 0; color: #000; padding-left: 10px; border-left: 1px solid #ccc }
 
 /*	Blockquotes  */
 	blockquote, blockquote p { font-size: 17px; line-height: 24px; color: #777; font-style: italic; }

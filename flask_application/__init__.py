@@ -1,5 +1,6 @@
 from flask import Flask, session, render_template, request_started, abort
 from werkzeug import SharedDataMiddleware
+from werkzeug.routing import BaseConverter
 from json import load
 import os
 
@@ -23,6 +24,13 @@ def serve_static(sender):
 
 request_started.connect(serve_static, app)
 
+class RegexConverter(BaseConverter):
+    def __init__(self, url_map, *items):
+        super(RegexConverter, self).__init__(url_map)
+        self.regex = items[0]
+
+
+app.url_map.converters['regex'] = RegexConverter
 
 @app.before_request
 def before_request():
@@ -43,7 +51,7 @@ def inject_site_defaults():
 def page_home():
     documents = [
         (('wcf', "Westminster Confession of Faith"), sort_num_string(get_wcf().keys())),
-        (('wlc', "Westminster Shorter Catechsim"), sort_num_string(get_catechism("wsc").keys())),
+        (('wsc', "Westminster Shorter Catechsim"), sort_num_string(get_catechism("wsc").keys())),
         (('wlc', "Westminster Larger Catechsim"), sort_num_string(get_catechism("wlc").keys())),
     ]
     return render_template('page_t_home.html',
@@ -73,6 +81,18 @@ def page_wcf_chapter(chapter):
                                page_title=page_title,
                                chapter_title=title,
                                paragraphs=paragraphs)
+    else:
+        abort(404)
+
+
+@app.route('/c/<regex("(wlc|wsc)"):catechism>/<question>')
+def page_wlc_qa(catechism, question):
+    page_title = "Westminster Larger Catechsim"
+    qas = get_catechism(catechism, num=question)
+    if qas:
+        return render_template('page_t_catechism.html',
+                           page_title=page_title,
+                           qas=qas)
     else:
         abort(404)
 
@@ -108,11 +128,10 @@ def get_catechism(name, num=None):
     json_path = os.path.join(root_path, "static/data/{}.json".format(name))
     with open(json_path, "r") as f:
         wlc = load(f)
-
     if num:
         num = str(num)
         try:
-            return (num, wlc[num][0], wlc[num][1])
+            return [(num, wlc[num][0], wlc[num][1])]
         except:
             return None
     else:
