@@ -19,9 +19,9 @@ import sys
 from fabric.api import env, run, task, local, cd
 from fabric.colors import red, green, blue
 
-APP_NAME = "flask_application"
+APP_NAME = "web"
 PROJ_DIR = os.path.dirname(os.path.abspath(__file__))
-SITE_NAME = "example.com"
+SITE_NAME = "reformedconfessions.com"
 
 env.hosts = ['user@remotehost']
 code_dir = '/path/to/repos/destination'
