@@ -52,7 +52,7 @@ def deploy():
     '''Final deployment of the application'''
     with cd(code_dir):
         run("git pull")
-        run("touch flask_application.wsgi")
+        run("touch web.wsgi")
         #run("sudo apachectl restart")
 
 

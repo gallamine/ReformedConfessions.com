@@ -9,10 +9,10 @@ app = Flask(__name__)
 
 # Config
 if app.config['DEBUG']:
-    app.config.from_object('flask_application.config.DevelopmentConfig')
+    app.config.from_object('web.config.DevelopmentConfig')
     app.logger.info("Config: Development")
 else:
-    app.config.from_object('flask_application.config.ProductionConfig')
+    app.config.from_object('web.config.ProductionConfig')
     app.logger.info("Config: Production")
 
 
