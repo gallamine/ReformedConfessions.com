@@ -62,8 +62,8 @@
 /* #Typography
 ================================================== */
 	h1, h2, h3, h4, h5, h6 {
-		color: #181818;
-		font-family: "Georgia", "Times New Roman", serif;
+		color: #006363;
+		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		font-weight: normal; }
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; text-decoration: line-through;}
 	h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
@@ -94,10 +94,31 @@
 
 	hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 10px 0 30px; height: 0; }
 
+
+/* Buttons Across Top */
+	#navbar {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		text-align: center;
+		margin-bottom: 10px;
+		font-size: 16px;
+		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	.navbutton {
+ 		border-radius: 2px;
+	}
+	#navbar a:link {color: #A60000; text-decoration: none;}
+	#navbar a:visited, #navbar a:hover, #navbar a:active {
+	  color: #A60000;
+	  text-decoration: none;
+	}
+
+/* Buttons on Front Page */
  	#hometable {
  		width: 100%;
  		height: 100px;
  		position:relative;
+ 		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
  	}
 
  	.homelink {
@@ -129,7 +150,10 @@
 
 /* #Links
 ================================================== */
-	.footer { color: #999999;}
+	.footer {
+		color: #999999;
+		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
 
 	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
 	a:hover, a:focus { color: #000; }
@@ -189,7 +213,7 @@
 	  text-align: center;
 	  vertical-align: middle;
 	  box-sizing: border-box;
-	  font-family: "Georgia", "Times New Roman", serif; }
+	  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 	.button:hover,
 	button:hover,

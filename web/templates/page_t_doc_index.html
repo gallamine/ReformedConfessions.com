@@ -3,7 +3,6 @@
     {% block content %}
 
     <div class="column">
-            <h4>{{ page_title }}</h4>
             {% for chapter in chapters %}
                 <a href="/c/{{ abbr }}/{{ chapter }}" class="button">{{ chapter }}</a>
             {% endfor %}

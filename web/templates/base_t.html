@@ -80,11 +80,11 @@
 
     <!-- Favicons
     ================================================== -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename = 'images/favicon.ico')}}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename = 'images/apple-touch-icon.png')}}">
+    <!-- <link rel="shortcut icon" href="{{ url_for('static', filename = 'images/favicon.ico')}}"> -->
+    <!-- <link rel="apple-touch-icon" href="{{ url_for('static', filename = 'images/apple-touch-icon.png')}}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename = 'images/apple-touch-icon-72x72.png')}}">
     <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename = 'images/apple-touch-icon-114x114.png')}}">
-
+ -->
 
 	<!-- Javascript
     ================================================== -->
@@ -98,11 +98,17 @@
 <body>
 
 
-    <div class="container">
-        <div class="sixteen columns">
-            <a href="/"><h5 class="remove-bottom" style="margin-top: 40px">Reformed Confessions</h5></a>
-            <hr />
+    <div class="container" id="navbar">
+        <div class="eight columns navbutton alpha ">
+            <a href="/">Home</a>
         </div>
+        <div class="eight columns navbutton omega">
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h4>{{ page_title }}</h4>
         {% block content %}
         {% endblock %}
 

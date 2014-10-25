@@ -58,10 +58,15 @@ def page_home():
         ('wlc', "Westminster Larger Catechsim"),
     ]
     docs = list(itertools.izip(itertools.cycle(["link_a", "link_b", "link_c"]), documents))
-    print docs
     return render_template('page_t_home.html',
-                           page_title="Home",
+                           page_title="",
                            documents=docs)
+
+
+@app.route('/about')
+def page_about():
+    return render_template('page_t_about.html',
+                           page_title="About")
 
 
 @app.route('/<regex("(wlc|wsc|wcf)"):doc_name>')
