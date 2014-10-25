@@ -9,15 +9,10 @@
 
         {% for num, question, answer in qas %}
               <div class="fourteen columns">
-                <div class="row">
-                  <div class="one columns alpha omega">{{ num }}.</div>
-                  <div class="thirteen columns alpha omega">
                     <dl>
-                        <dt>{{ question }}</dt>
+                        <dt>{{ num }}. {{ question }}</dt>
                         <dd>{{ answer }}</dt>
                     </dl>
-                </div>
-                </div>
               </div>
         {% endfor %}
     </div>

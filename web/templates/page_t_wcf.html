@@ -10,10 +10,7 @@
 
         {% for num, paragraph in paragraphs %}
               <div class="fourteen columns">
-                <div class="row">
-                  <div class="one columns alpha omega">{{ num }}.</div>
-                  <div class="thirteen columns alpha omega">{{ paragraph }}</div>
-                </div>
+                <p>{{ num }}. {{ paragraph }}</p>
               </div>
         {% endfor %}
     </div>
