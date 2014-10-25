@@ -10,16 +10,13 @@ References:
 
 from __future__ import with_statement
 import platform
-assert ('2','6') <= platform.python_version_tuple() < ('3','0')
+assert ('2', '6') <= platform.python_version_tuple() < ('3', '0')
 
 import os
 import sh
 import sys
 
-from fabric.api import env, local, sudo, run, task
-from fabric.utils import puts, warn
-from fabric.api import local, settings, abort, run, cd
-from fabric.contrib.console import confirm
+from fabric.api import env, run, task, local, cd
 from fabric.colors import red, green, blue
 
 APP_NAME = "flask_application"
@@ -44,9 +41,10 @@ def _transfer_files(src, dst, ssh_port=None):
 
 @task
 def pre_deploy():
-     '''Add, commit and push the Git repo before final deployment.'''
-     local("git add -p && git commit")
-     local("git push")
+    '''Add, commit and push the Git repo before final deployment.'''
+    local("git add -p && git commit")
+    local("git push")
+
 
 @task
 def deploy():
@@ -57,6 +55,7 @@ def deploy():
         run("touch flask_application.wsgi")
         #run("sudo apachectl restart")
 
+
 @task
 def init(site_name=SITE_NAME):
     '''Call env_setup, env_init, and skeletonize for one-step init'''
@@ -64,6 +63,7 @@ def init(site_name=SITE_NAME):
     env_setup()
     env_init(site_name=site_name)
     skeletonize()
+
 
 @task
 def env_init(site_name=SITE_NAME):
@@ -114,7 +114,7 @@ def env_setup():
     sh.pip("install", r="requirements.txt")
 
     import platform
-    if platform.python_version_tuple() < (2,7):
+    if platform.python_version_tuple() < (2, 7):
         sh.pip("install", "unittest2")
 
 
@@ -130,9 +130,9 @@ def skeletonize():
 
     os.chdir(PROJ_DIR + "/skeleton")
     sh.git.pull("origin", "master")
-    sh.rsync("-av", "images", "{0}/{1}/static/".format(PROJ_DIR,APP_NAME))
-    sh.rsync("-av", "stylesheets",  "{0}/{1}/static/".format(PROJ_DIR,APP_NAME))
-    sh.rsync("-av", "index.html",  "{0}/{1}/templates/base_t.html".format(PROJ_DIR,APP_NAME))
+    sh.rsync("-av", "images", "{0}/{1}/static/".format(PROJ_DIR, APP_NAME))
+    sh.rsync("-av", "stylesheets", "{0}/{1}/static/".format(PROJ_DIR, APP_NAME))
+    sh.rsync("-av", "index.html", "{0}/{1}/templates/base_t.html".format(PROJ_DIR, APP_NAME))
     os.chdir(PROJ_DIR)
 
     # Patch the base template with templating tags
@@ -156,16 +156,19 @@ def console():
     '''Load the application in an interactive console.'''
     local('env DEV=yes python -i runserver.py', capture=False)
 
+
 @task
 def server():
     '''Run the dev server'''
     os.chdir(PROJ_DIR)
     local('env DEV=yes python runserver.py', capture=False)
 
+
 @task
 def test():
     '''Run the test suite'''
     local('env TEST=yes python tests.py', capture=False)
+
 
 @task
 def clean():

@@ -1,13 +1,4 @@
-[plan]
-title=Westminster Standards
-url=http://www.gpts.edu/resources/documents/Calendar%20Readings%20in%20WestminsterNumbered.pdf
-readings=365
 
-[description]
-This reading plan by Dr. Joseph Pipa takes you through the Westminster
-Confession of Faith, and the Larger and Shorter Catechisms, in one year.
-
-[readings]
 WLC 1, WSC 1
 WCF 1.1
 WLC 2
