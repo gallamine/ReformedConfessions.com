@@ -80,7 +80,7 @@
 
 	em { font-style: italic; }
 	strong { font-weight: bold; color: #333; }
-	small { font-size: 80%; }
+	small { font-size: 80%;}
 
 	dt { margin: 0 0 10px 0; color: #000;  }
 	dd { margin: 0 0 10px 0; color: #000; padding-left: 10px; border-left: 1px solid #ccc }
@@ -97,9 +97,15 @@
 
 /* #Links
 ================================================== */
+	.footer { color: #999999;}
+
 	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
 	a:hover, a:focus { color: #000; }
+	a.footer, a.footer:visited { color: #999999; text-decoration: none; }
+	a.footer:hover, a.nounderline:focus { color: #999999; text-decoration: underline; }
 	p a, p a:visited { line-height: inherit; }
+
+
 
 
 /* #Lists

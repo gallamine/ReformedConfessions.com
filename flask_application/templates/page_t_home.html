@@ -8,7 +8,7 @@
 
     <div class="column">
         {% for (abbr, title), chapters in documents %}
-            <h3>{{ title }}</h3>
+            <h4>{{ title }}</h4>
             {% for chapter in chapters %}
                 <a href="/c/{{ abbr }}/{{ chapter }}" class="button">{{ chapter }}</a>
             {% endfor %}

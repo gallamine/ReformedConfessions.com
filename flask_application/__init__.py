@@ -87,7 +87,8 @@ def page_wcf_chapter(chapter):
 
 @app.route('/c/<regex("(wlc|wsc)"):catechism>/<question>')
 def page_wlc_qa(catechism, question):
-    page_title = "Westminster Larger Catechsim"
+
+    page_title = catechisms[catechism]
     qas = get_catechism(catechism, num=question)
     if qas:
         return render_template('page_t_catechism.html',
@@ -121,6 +122,12 @@ def get_wcf(chapter=None, section=None):
             return None
     else:
         return wcf
+
+
+catechisms = {
+    "wlc": "Westminster Larger Catechsim",
+    "wsc": "Westminster Shorter Catechsim",
+}
 
 
 def get_catechism(name, num=None):
