@@ -1,0 +1,14 @@
+{% extends "base_t.html" %}
+
+    {% block content %}
+    {% for type, doc_name, excerpt in excerpts %}
+        {% if type == "wcf" %}
+            {% include "partial/block_wcf.jinja2" %}
+        {% endif %}
+        {% if type in ["wlc", "wsc"] %}
+            {% include "partial/block_catechism.jinja2" %}
+        {% endif %}
+    {% endfor %}
+    {% endblock %}
+
+

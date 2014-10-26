@@ -1,0 +1,7 @@
+<h4>{{ doc_name }}</h4>
+{% for chapter_num in excerpt %}
+    <h5>{{ excerpt[chapter_num]['title'] }}</h5>
+    {% for sec_num, sec in excerpt[chapter_num]['body'].iteritems() %}
+        <p>{{ sec_num }}. {{ sec }}</p>
+    {% endfor %}
+{% endfor %}

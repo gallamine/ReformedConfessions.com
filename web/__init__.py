@@ -1,9 +1,9 @@
 from flask import Flask, session, render_template, request_started, abort
 from werkzeug import SharedDataMiddleware
 from werkzeug.routing import BaseConverter
-from json import load
 import itertools
 import os
+import data
 
 # create our application
 app = Flask(__name__)
@@ -59,7 +59,7 @@ def page_home():
     ]
     docs = list(itertools.izip(itertools.cycle(["link_a", "link_b", "link_c"]), documents))
     return render_template('page_t_home.html',
-                           page_title="",
+                           page_title="Home",
                            documents=docs)
 
 
@@ -71,11 +71,11 @@ def page_about():
 
 @app.route('/<regex("(wlc|wsc|wcf)"):doc_name>')
 def page_document_index(doc_name):
-    page_title = catechisms[doc_name]
+    page_title = data.catechisms[doc_name]
     if doc_name == "wcf":
-        chapters = sort_num_string(get_wcf().keys())
+        chapters = sort_num_string(data.get_wcf().data.keys())
     elif doc_name in ["wsc", "wlc"]:
-        chapters = sort_num_string(get_catechism(doc_name).keys())
+        chapters = sort_num_string(data.get_catechism(doc_name).data.keys())
     if chapters:
         return render_template('page_t_doc_index.html',
                                page_title=page_title,
@@ -85,84 +85,17 @@ def page_document_index(doc_name):
         abort(404)
 
 
-# @app.route('/c/wcf/<chapter>/<section>')
-# def page_wcf_chapter_section(chapter, section):
-#     page_title = "Westminster Confession of Faith %s.%s" % (chapter, section)
-#     title, paragraphs = get_wcf(chapter, section)
-#     if paragraphs:
-#         return render_template('page_t_wcf.html',
-#                                page_title=page_title,
-#                                chapter_title=title,
-#                                paragraphs=paragraphs)
-#     else:
-#         abort(404)
-
-
 @app.route('/c/<regex("(wlc|wsc|wcf)"):catechism>/<question>')
 def page_doc_display(catechism, question):
-    page_title = catechisms[catechism]
     if catechism == "wcf":
-        title, paragraphs = get_wcf(question)
-        if paragraphs:
-            return render_template('page_t_wcf.html',
-                                   page_title=page_title,
-                                   chapter_title=title,
-                                   paragraphs=paragraphs)
+        excerpt = data.get_wcf(question)
     elif catechism in ["wsc", "wlc"]:
-        qas = get_catechism(catechism, num=question)
-        if qas:
-            return render_template('page_t_catechism.html',
-                                   page_title=page_title,
-                                   qas=qas)
+        excerpt = data.get_catechism(catechism, question)
+
+    if excerpt:
+        return render_template('page_t_excerpts.html',
+                               excerpts=[excerpt])
     abort(404)
-
-
-def get_wcf(chapter=None, section=None):
-    root_path = os.path.dirname(os.path.realpath(__file__))
-    json_path = os.path.join(root_path, "static/data/wcf.json")
-    with open(json_path, "r") as f:
-        wcf = load(f)
-
-    if chapter and section:
-        chapter = str(chapter)
-        section = int(section)
-        try:
-            title = "Chapter %s: %s" % (chapter, wcf[chapter]["title"])
-            section = [(section, wcf[chapter]["body"][section - 1])]
-            return (title, section)
-        except:
-            return None
-    elif chapter:
-        chapter = str(chapter)
-        try:
-            title = "Chapter %s: %s" % (chapter, wcf[chapter]["title"])
-            return (title, list(enumerate(wcf[chapter]["body"], 1)))
-        except:
-            return None
-    else:
-        return wcf
-
-
-catechisms = {
-    "wcf": "Westminster Confession of Faith",
-    "wlc": "Westminster Larger Catechsim",
-    "wsc": "Westminster Shorter Catechsim",
-}
-
-
-def get_catechism(name, num=None):
-    root_path = os.path.dirname(os.path.realpath(__file__))
-    json_path = os.path.join(root_path, "static/data/{}.json".format(name))
-    with open(json_path, "r") as f:
-        wlc = load(f)
-    if num:
-        num = str(num)
-        try:
-            return [(num, wlc[num][0], wlc[num][1])]
-        except:
-            return None
-    else:
-        return wlc
 
 
 def sort_num_string(l):
