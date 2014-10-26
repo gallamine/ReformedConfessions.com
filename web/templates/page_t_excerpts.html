@@ -2,6 +2,7 @@
 
     {% block content %}
     {% for type, doc_name, excerpt in excerpts %}
+        <h5>{{ doc_name }}</h5>
         {% if type == "wcf" %}
             {% include "partial/block_wcf.jinja2" %}
         {% endif %}

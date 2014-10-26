@@ -47,19 +47,15 @@ def after_request(response):
 
 @app.context_processor
 def inject_site_defaults():
-        return dict(site_title="Reformed Confessions")
+        return dict(site_title="ReformedConfessions.com")
 
 
 @app.route('/')
 def page_home():
-    documents = [
-        ('wcf', "Westminster Confession of Faith"),
-        ('wsc', "Westminster Shorter Catechsim"),
-        ('wlc', "Westminster Larger Catechsim"),
-    ]
+    documents = list(data.catechisms.iteritems())
     docs = list(itertools.izip(itertools.cycle(["link_a", "link_b", "link_c"]), documents))
     return render_template('page_t_home.html',
-                           page_title="Home",
+                           page_title="ReformedConfessions.com",
                            documents=docs)
 
 
