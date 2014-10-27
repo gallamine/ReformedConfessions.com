@@ -5,6 +5,7 @@ from werkzeug.routing import BaseConverter
 import itertools
 import os
 import data
+import util
 
 # create our application
 app = Flask(__name__)
@@ -70,9 +71,9 @@ def page_about():
 def page_document_index(doc_name):
     page_title = data.catechisms[doc_name]
     if doc_name == "wcf":
-        chapters = sort_num_string(data.get_wcf().data.keys())
+        chapters = data.get_wcf().data.keys()
     elif doc_name in ["wsc", "wlc"]:
-        chapters = sort_num_string(data.get_catechism(doc_name).data.keys())
+        chapters = data.get_catechism(doc_name).data.keys()
     if chapters:
         return render_template('page_t_doc_index.html',
                                page_title=page_title,
@@ -96,12 +97,6 @@ def json_doc_display(request_type, catechism, question=None):
             return render_template('page_t_excerpts.html',
                                    excerpts=[excerpt])
     abort(404)
-
-
-def sort_num_string(l):
-    l = list(l)[:]
-    l.sort(key=int)
-    return l
 
 
 class DoesNotExistException(Exception):

@@ -1,6 +1,6 @@
 import simplejson as json
 import os
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 
 catechisms = {
@@ -17,7 +17,7 @@ def get_wcf(chapter=None, sections=None):
     root_path = os.path.dirname(os.path.realpath(__file__))
     json_path = os.path.join(root_path, "static/data/{}.json".format("wcf"))
     with open(json_path, "r") as f:
-        wcf = json.load(f)
+        wcf = json.load(f, object_pairs_hook=OrderedDict)
 
     if chapter and sections:
         if isinstance(sections, basestring) or isinstance(sections, int):
@@ -40,7 +40,8 @@ def get_catechism(name, questions=None):
     root_path = os.path.dirname(os.path.realpath(__file__))
     json_path = os.path.join(root_path, "static/data/{}.json".format(name))
     with open(json_path, "r") as f:
-        catechism = json.load(f)
+        # catechism = json.load(f, object_pairs_hook=lambda x: OrderedDict(x, key=lambda y: int(y[0])))
+        catechism = json.load(f, object_pairs_hook=OrderedDict)
     if questions:
         if isinstance(questions, basestring) or isinstance(questions, int):
             questions = [questions]
