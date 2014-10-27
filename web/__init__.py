@@ -1,4 +1,5 @@
-from flask import Flask, session, render_template, request_started, abort
+from flask import (Flask, session, render_template,
+                   request_started, abort, jsonify)
 from werkzeug import SharedDataMiddleware
 from werkzeug.routing import BaseConverter
 import itertools
@@ -81,16 +82,19 @@ def page_document_index(doc_name):
         abort(404)
 
 
-@app.route('/c/<regex("(wlc|wsc|wcf)"):catechism>/<question>')
-def page_doc_display(catechism, question):
+@app.route('/<regex("(json|c)"):request_type>/<regex("(wlc|wsc|wcf)"):catechism>/<question>')
+@app.route('/<regex("(json|c)"):request_type>/<regex("(wlc|wsc|wcf)"):catechism>')
+def json_doc_display(request_type, catechism, question=None):
     if catechism == "wcf":
         excerpt = data.get_wcf(question)
     elif catechism in ["wsc", "wlc"]:
         excerpt = data.get_catechism(catechism, question)
-
     if excerpt:
-        return render_template('page_t_excerpts.html',
-                               excerpts=[excerpt])
+        if request_type == "json":
+            return jsonify({excerpt.abbv: [excerpt]})
+        else:
+            return render_template('page_t_excerpts.html',
+                                   excerpts=[excerpt])
     abort(404)
 
 
