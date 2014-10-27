@@ -13,3 +13,7 @@ A little website for displaying [Reformed confessions](http://en.wikipedia.org/w
 - [ ] Add search
 - [ ] Add list of chapter titles for WCF
 - [ ] Add list of section titles for WLC
+- [ ] Add unit tests
+- [ ] Connect Github to Travis CI
+- [ ] Connect Travis to Heroku
+- [ ] Fix formating for multiline answers/paragraphs
