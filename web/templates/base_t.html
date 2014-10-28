@@ -96,7 +96,6 @@
 </head>
 <body>
 
-
     <div class="container" id="navbar">
         <div class="one columns navbutton offset-by-six">
             <center><a href="/">Home</a></center>
@@ -108,7 +107,10 @@
     </div>
 
     <div class="container">
-        <center><h4>{{ page_title }}</h4></center>
+        <center><h4 style="display: inline;">{{ page_title }}</h4><small class="beta">beta</small></center>
+
+
+
         {% block content %}
         {% endblock %}
 
