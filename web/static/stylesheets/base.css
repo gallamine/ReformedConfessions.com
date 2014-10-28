@@ -167,7 +167,19 @@
 	a:hover, a:focus { color: #000; }
 	a.footer, a.footer:visited { color: #999999; text-decoration: none; }
 	a.footer:hover, a.nounderline:focus { color: #000; text-decoration: none; }
+
 	p a, p a:visited { line-height: inherit; }
+
+	a.permalink, a.permalink:visited {
+		color: #999;
+		text-decoration: none;
+		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	a.permalink:hover, a.permalink:focus {
+		color: #999;
+		text-decoration: underline;
+		font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
 
 
 

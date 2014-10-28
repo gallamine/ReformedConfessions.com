@@ -1,22 +1,53 @@
 {% extends "base_t.html" %}
     {% block content %}
+
     <div class="column">
             {% for chapter in chapters %}
-                <a href="/c/{{ abbr }}/{{ chapter }}" class="button">{{ chapter }}</a>
+                <a href="#{{ chapter }}" class="button">{{ chapter }}</a>
             {% endfor %}
     </div>
+    <br />
 
-    <div>
+    <span>
         {% if abbr == "wcf" %}
             {% for chapter, content in doc.data.iteritems() %}
-                <div class="readmore">
-                    <h5>{{ content['title'] }}</h5>
+                <a name={{ chapter }}></a>
+                <h5 class="section_header">{{ content['title'] }}</h5>
+                <div class="section_body" id="section_body_{{ chapter }}">
                     {% for sec_num, sec in content['body'].iteritems() %}
                         <p>{{ sec_num }}. {{ sec }}</p>
                     {% endfor %}
+                    <a href="/c/{{ abbr }}/{{ chapter }}" class="permalink"><small>permalink</small></a>
                 </div>
             {% endfor %}
-
         {% endif %}
-    </div>
+        {% if abbr in ["wsc", "wlc"] %}
+            {% for chapter, content in doc.data.iteritems() %}
+                <a name={{ chapter }}></a>
+                <dl>
+                    <dt class="section_header">{{ chapter }}. {{ content['question'] }}</dt>
+                    <div class="section_body" id="section_body_{{ chapter }}">
+                         <dd>{{ content['answer'] }}</dd>
+                         <a href="/c/{{ abbr }}/{{ chapter }}" class="permalink"><small>permalink</small></a>
+                    </div>
+                </dl>
+            {% endfor %}
+        {% endif %}
+    </span>
+
+    <script type="text/javascript">
+        $(".section_body").slideToggle(200, function () {});
+        $(".section_header").click(function () {
+            $header = $(this);
+            $content = $header.next();
+            $content.slideToggle(200, function () {});
+        });
+
+        $(".button").click(function () {
+            var ch_num = $(this).text()
+            id = "#section_body_" + ch_num
+            $(id).slideDown(0, function () {});
+        });
+    </script>
+
     {% endblock %}
