@@ -55,8 +55,6 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 
 <head>
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-
     <!-- Basic Page Needs
     ================================================== -->
 	<meta charset="utf-8">
@@ -88,7 +86,8 @@
 
 	<!-- Javascript
     ================================================== -->
-    <script src="{{ url_for('static', filename='js/jquery-1.9.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-1.11.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/readmore.min.js') }}"></script>
 
 	<!-- Template block additions
     ================================================== -->

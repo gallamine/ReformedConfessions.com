@@ -71,27 +71,30 @@ def page_about():
 def page_document_index(doc_name):
     page_title = data.catechisms[doc_name]
     if doc_name == "wcf":
-        chapters = data.get_wcf().data.keys()
+        doc = data.get_wcf()
+        chapters = doc.data.keys()
     elif doc_name in ["wsc", "wlc"]:
-        chapters = data.get_catechism(doc_name).data.keys()
+        doc = data.get_catechism(doc_name)
+        chapters = doc.data.keys()
     if chapters:
         return render_template('page_t_doc_index.html',
                                page_title=page_title,
                                abbr=doc_name,
-                               chapters=chapters)
+                               chapters=chapters,
+                               doc=doc)
     else:
         abort(404)
 
 
-@app.route('/<regex("(json|c)"):request_type>/<regex("(wlc|wsc|wcf)"):catechism>/<question>')
-@app.route('/<regex("(json|c)"):request_type>/<regex("(wlc|wsc|wcf)"):catechism>')
+@app.route('/<regex("(v1/json|c)"):request_type>/<regex("(wlc|wsc|wcf)"):catechism>/<question>')
+@app.route('/<regex("(v1/json|c)"):request_type>/<regex("(wlc|wsc|wcf)"):catechism>')
 def json_doc_display(request_type, catechism, question=None):
     if catechism == "wcf":
         excerpt = data.get_wcf(question)
     elif catechism in ["wsc", "wlc"]:
         excerpt = data.get_catechism(catechism, question)
     if excerpt:
-        if request_type == "json":
+        if request_type == "v1/json":
             return jsonify({excerpt.abbv: [excerpt]})
         else:
             return render_template('page_t_excerpts.html',

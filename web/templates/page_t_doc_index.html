@@ -1,10 +1,22 @@
 {% extends "base_t.html" %}
-
     {% block content %}
-
     <div class="column">
             {% for chapter in chapters %}
                 <a href="/c/{{ abbr }}/{{ chapter }}" class="button">{{ chapter }}</a>
             {% endfor %}
+    </div>
+
+    <div>
+        {% if abbr == "wcf" %}
+            {% for chapter, content in doc.data.iteritems() %}
+                <div class="readmore">
+                    <h5>{{ content['title'] }}</h5>
+                    {% for sec_num, sec in content['body'].iteritems() %}
+                        <p>{{ sec_num }}. {{ sec }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+        {% endif %}
     </div>
     {% endblock %}
