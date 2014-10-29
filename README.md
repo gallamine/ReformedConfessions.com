@@ -4,6 +4,12 @@ A little website for displaying [Reformed confessions](http://en.wikipedia.org/w
 
 Currently in beta and under active development.
 
+### You can help!
+
+If you web programming, Python, or design skills, your help would be welcome. You can submit a pull request or contact me at [feedback@reformedconfessions.com](mailto:feedback@reformedconfessions.com) or [@tdhopper](@tdhopper).
+
+If you don't have technical skills but would still like to help, you can help with preparation of documents for publication on this site. Please email [feedback@reformedconfessions.com](mailto:feedback@reformedconfessions.com) for more information.
+
 ### Release Goals
 
 #### Version 0.5-beta
