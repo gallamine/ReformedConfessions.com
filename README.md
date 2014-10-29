@@ -18,9 +18,12 @@ Currently in beta and under active development.
 - [ ] Redesign page header.
 - [ ] Redesign landing page to make more clear and welcoming.
 - [ ] Redesign page footer.
+- [ ] Improve design of catechism/confession landing pages, e.g. [http://www.reformedconfessions.com/wlc](http://www.reformedconfessions.com/wlc).
 
 #### Version 1.0
 
+- [ ] Add "copy to clipboard" feature.
+- [ ] Implement [open graph protocol](http://ogp.me/).
 - [ ] Add Larger Catechism section headings.
 - [ ] Add unit tests.
 - [ ] Integrate with Travis CI.
@@ -31,5 +34,6 @@ Currently in beta and under active development.
 
 #### Version 2.0
 
+- [ ] Add [Twitter Card](https://dev.twitter.com/cards/overview) integration.
 - [ ] Add search.
 - [ ] ???? ([feedback@reformedconfession.com](mailto:feedback@reformedconfession.com))
